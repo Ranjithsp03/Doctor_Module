@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Doctor_Module.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250621092145_InitialCreate")]
+    [Migration("20250622133404_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -94,6 +94,9 @@ namespace Doctor_Module.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("Count")
+                        .HasColumnType("INTEGER");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("TEXT");
 
@@ -101,14 +104,14 @@ namespace Doctor_Module.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeSpan>("End_Time")
+                    b.Property<TimeSpan>("EndTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<TimeSpan>("Start_Time")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("count")
+                    b.Property<bool>("IsAvailable")
                         .HasColumnType("INTEGER");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("TimeSlotID");
 
@@ -130,13 +133,13 @@ namespace Doctor_Module.Migrations
 
             modelBuilder.Entity("Doctor_Module.Timeslots.Timeslot", b =>
                 {
-                    b.HasOne("Doctor_Module.Models.Doctor.Doctor", "doctor")
+                    b.HasOne("Doctor_Module.Models.Doctor.Doctor", "Doctor")
                         .WithMany()
                         .HasForeignKey("DoctorID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("doctor");
+                    b.Navigation("Doctor");
                 });
 #pragma warning restore 612, 618
         }

@@ -59,9 +59,10 @@ namespace Doctor_Module.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     DoctorID = table.Column<string>(type: "TEXT", nullable: false),
                     Date = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Start_Time = table.Column<TimeSpan>(type: "TEXT", nullable: false),
-                    End_Time = table.Column<TimeSpan>(type: "TEXT", nullable: false),
-                    count = table.Column<int>(type: "INTEGER", nullable: false)
+                    StartTime = table.Column<TimeSpan>(type: "TEXT", nullable: false),
+                    EndTime = table.Column<TimeSpan>(type: "TEXT", nullable: false),
+                    IsAvailable = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Count = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

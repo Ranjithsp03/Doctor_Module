@@ -16,8 +16,6 @@ namespace Doctor_Module.Controllers
             _context = context;
         }
 
-        // POST: api/timeslot/add
-        //Check the doctor exist or not and post the timeslot
         [HttpPost("add")]
         public async Task<IActionResult> AddTimeslot(Timeslot timeslot)
         {
@@ -30,41 +28,31 @@ namespace Doctor_Module.Controllers
             return Ok(timeslot);
         }
 
-        // GET: api/timeslot/{id}
-        //Get the time slot for the particular doctor
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTimeslot(int id)
         {
-            var slot = await _context.Timeslots
-                .Include(t => t.doctor)
-                .FirstOrDefaultAsync(t => t.TimeSlotID == id);
-
+            var slot = await _context.Timeslots.Include(t => t.Doctor).FirstOrDefaultAsync(t => t.TimeSlotID == id);
             return slot == null ? NotFound("Timeslot not found.") : Ok(slot);
         }
 
-        // GET: api/timeslot/all
-        //Get all the timeslots in the database
         [HttpGet("all")]
         public async Task<IActionResult> GetAllTimeslots()
         {
-            var slots = await _context.Timeslots
-                .Include(t => t.doctor)
-                .Select(t => new
-                {
-                    t.TimeSlotID,
-                    t.DoctorID,
-                    t.Date,
-                    t.Start_Time,
-                    t.End_Time,
-                    t.count,
-                    DoctorName = t.doctor.Name
-                }).ToListAsync();
+            var slots = await _context.Timeslots.Include(t => t.Doctor).Select(t => new
+            {
+                t.TimeSlotID,
+                t.DoctorID,
+                t.Date,
+                t.StartTime,
+                t.EndTime,
+                t.Count,
+                t.IsAvailable,
+                DoctorName = t.Doctor.Name
+            }).ToListAsync();
 
             return Ok(slots);
         }
 
-        // PUT: api/timeslot/{id}
-        //Update the timeslot
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTimeslot(int id, Timeslot updatedSlot)
         {
@@ -73,17 +61,16 @@ namespace Doctor_Module.Controllers
                 return NotFound("Timeslot not found.");
 
             existingSlot.Date = updatedSlot.Date;
-            existingSlot.Start_Time = updatedSlot.Start_Time;
-            existingSlot.End_Time = updatedSlot.End_Time;
-            existingSlot.count = updatedSlot.count;
+            existingSlot.StartTime = updatedSlot.StartTime;
+            existingSlot.EndTime = updatedSlot.EndTime;
+            existingSlot.IsAvailable = updatedSlot.IsAvailable;
+            existingSlot.Count = updatedSlot.Count;
             existingSlot.DoctorID = updatedSlot.DoctorID;
 
             await _context.SaveChangesAsync();
             return Ok(existingSlot);
         }
 
-        // DELETE: api/timeslot/{id}
-        //Delete the timeslot by checking whether it is available or not
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTimeslot(int id)
         {
