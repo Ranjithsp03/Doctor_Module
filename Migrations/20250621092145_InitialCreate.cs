@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -17,6 +18,7 @@ namespace Doctor_Module.Migrations
                     DoctorID = table.Column<string>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Specialization = table.Column<string>(type: "TEXT", nullable: false),
+                    Experiance = table.Column<int>(type: "INTEGER", nullable: false),
                     Password = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false)
                 },
@@ -31,11 +33,12 @@ namespace Doctor_Module.Migrations
                 {
                     AppointmentID = table.Column<string>(type: "TEXT", nullable: false),
                     DoctorID = table.Column<string>(type: "TEXT", nullable: false),
-                    Patient_name = table.Column<string>(type: "TEXT", nullable: false),
-                    Issue = table.Column<string>(type: "TEXT", nullable: false),
                     Time = table.Column<string>(type: "TEXT", nullable: false),
                     Emergency = table.Column<string>(type: "TEXT", nullable: false),
-                    Prescription = table.Column<string>(type: "TEXT", nullable: false)
+                    Prescription = table.Column<string>(type: "TEXT", nullable: false),
+                    Prescription_ID = table.Column<string>(type: "TEXT", nullable: false),
+                    Patient_ID = table.Column<string>(type: "TEXT", nullable: false),
+                    Issue = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,9 +58,10 @@ namespace Doctor_Module.Migrations
                     TimeSlotID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     DoctorID = table.Column<string>(type: "TEXT", nullable: false),
-                    Date = table.Column<string>(type: "TEXT", nullable: false),
-                    Start_Time = table.Column<string>(type: "TEXT", nullable: false),
-                    End_Time = table.Column<string>(type: "TEXT", nullable: false)
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Start_Time = table.Column<TimeSpan>(type: "TEXT", nullable: false),
+                    End_Time = table.Column<TimeSpan>(type: "TEXT", nullable: false),
+                    count = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

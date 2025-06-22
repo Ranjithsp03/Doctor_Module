@@ -5,8 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Registering the DbContext with SQLite
 builder.Services.AddDbContext<AppDbContext>(options => 
-    options.UseSqlite("Data Source=C:\\Users\\u499230\\Desktop\\Doctor_Module\\DoctorApp.db"));
-
+    options.UseSqlite("Data Source=DoctorApp.db"));
+builder.Services.AddRazorPages();
 // Adding controllers
 builder.Services.AddControllers();
 
@@ -30,12 +30,19 @@ if (app.Environment.IsDevelopment())
 
 // Enforcing HTTPS redirection
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 // Adding authorization middleware
 app.UseAuthorization();
-
+app.UseRouting();
 // Mapping controller routes
 app.MapControllers();
-
+app.MapRazorPages();
 // Running the application
+
+app.MapGet("/", context =>
+{
+    context.Response.Redirect("/Login");
+    return Task.CompletedTask;
+});
+
 app.Run();

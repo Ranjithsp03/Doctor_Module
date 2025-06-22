@@ -7,13 +7,13 @@ namespace Doctor_Module.Timeslots
     {
         public int TimeSlotID { get; set; }
         public string DoctorID { get; set; }
-        public string Date { get; set; }
-        public string Start_Time { get; set; }
-        public string End_Time { get; set; }
-        public int count{ get; set; }
+        public DateTime Date { get; set; }
+        public TimeSpan Start_Time { get; set; }
+        public TimeSpan End_Time { get; set; }
+        public int count { get; set; }
         public Doctor doctor { get; set; } //Navigation
                                            // timeslot
-        
+
 
         // public TimeSpan GetTimeDifference()
         // {
@@ -23,5 +23,9 @@ namespace Doctor_Module.Timeslots
         //     TimeSpan timeDifference = endTime - startTime;
         //     return timeDifference;
         // }
+        public TimeSpan GetTimeDifference()
+        {
+            return End_Time - Start_Time;
+        }
     }
 }

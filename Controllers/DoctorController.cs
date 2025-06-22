@@ -32,7 +32,7 @@ public class DoctorController : ControllerBase
     [HttpGet("all")]
     public async Task<IActionResult> GetAllDoctors()
     {
-        var doctors = await _context.Doctors.Select(d => new { d.DoctorID, d.Name, d.Specialization }).ToListAsync();
+        var doctors = await _context.Doctors.Select(d => new { d.DoctorID, d.Name, d.Specialization ,d.Experiance}).ToListAsync();
         return Ok(doctors);
     }
     [HttpPut("{id}")]
@@ -45,6 +45,7 @@ public class DoctorController : ControllerBase
             existingDoctor.Name = updatedDoctor.Name;
             existingDoctor.DoctorID = updatedDoctor.DoctorID;
             existingDoctor.Specialization = updatedDoctor.Specialization;
+            existingDoctor.Experiance = updatedDoctor.Experiance;
         }
         await _context.SaveChangesAsync();
         return Ok(existingDoctor);
