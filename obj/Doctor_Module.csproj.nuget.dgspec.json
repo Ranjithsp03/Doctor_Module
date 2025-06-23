@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "R:\\DoctorModule\\Doctor_Module\\Doctor_Module.csproj": {}
+    "C:\\Users\\u499346\\Project-1\\New folder\\Doctor_Module\\Doctor_Module.csproj": {}
   },
   "projects": {
-    "R:\\DoctorModule\\Doctor_Module\\Doctor_Module.csproj": {
+    "C:\\Users\\u499346\\Project-1\\New folder\\Doctor_Module\\Doctor_Module.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "R:\\DoctorModule\\Doctor_Module\\Doctor_Module.csproj",
+        "projectUniqueName": "C:\\Users\\u499346\\Project-1\\New folder\\Doctor_Module\\Doctor_Module.csproj",
         "projectName": "Doctor_Module",
-        "projectPath": "R:\\DoctorModule\\Doctor_Module\\Doctor_Module.csproj",
-        "packagesPath": "C:\\Users\\ranji\\.nuget\\packages\\",
-        "outputPath": "R:\\DoctorModule\\Doctor_Module\\obj\\",
+        "projectPath": "C:\\Users\\u499346\\Project-1\\New folder\\Doctor_Module\\Doctor_Module.csproj",
+        "packagesPath": "C:\\Users\\u499346\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\u499346\\Project-1\\New folder\\Doctor_Module\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ranji\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\u499346\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -89,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

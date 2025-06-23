@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Doctor_Module.Models.Doctor;
 using Doctor_Module.Timeslots;
 using Microsoft.AspNetCore.Mvc;
@@ -17,16 +18,29 @@ namespace Doctor_Module.Controllers
         }
 
         [HttpPost("add")]
-        public async Task<IActionResult> AddTimeslot(Timeslot timeslot)
-        {
-            var doctorExists = await _context.Doctors.AnyAsync(d => d.DoctorID == timeslot.DoctorID);
-            if (!doctorExists)
-                return BadRequest("Doctor does not exist.");
+public async Task<IActionResult> AddTimeslot(Timeslot timeslot)
+{
+    // Get the logged-in user's ID from the claims
+    var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            _context.Timeslots.Add(timeslot);
-            await _context.SaveChangesAsync();
-            return Ok(timeslot);
-        }
+    if (string.IsNullOrEmpty(userId))
+        return Unauthorized("User is not logged in.");
+
+    // Fetch the doctor associated with the logged-in user
+    var doctor = await _context.Doctors.FirstOrDefaultAsync(d => d.DoctorID == userId);
+
+    if (doctor == null)
+        return BadRequest("Doctor profile not found for the logged-in user.");
+
+    // Assign the DoctorID to the timeslot
+    timeslot.DoctorID = doctor.DoctorID;
+
+    _context.Timeslots.Add(timeslot);
+    await _context.SaveChangesAsync();
+
+    return Ok(timeslot);
+}
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTimeslot(int id)

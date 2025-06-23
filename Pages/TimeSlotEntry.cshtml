@@ -11,23 +11,30 @@
         <div class="col-md-6">
             <div class="card shadow p-4">
                 <h3 class="text-center mb-4">🕒 Record Time Slot</h3>
-@if (!ViewData.ModelState.IsValid)
-{
-    <div class="alert alert-danger">
-        <ul>
-            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
-            {
-                <li>@error.ErrorMessage</li>
-            }
-        </ul>
-    </div>
-}
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                    </div>
+                }
+
+                @if (TempData["Name"] != null)
+                {
+                    <div class="alert alert-info text-center mb-3">
+                        Logged in as: <strong>@TempData["Name"]</strong>
+                    </div>
+                }
 
                 <form method="post">
                     <div class="mb-3">
                         <label asp-for="Timeslot.Date" class="form-label">Date</label>
                         <input asp-for="Timeslot.Date" type="date" class="form-control" />
-
                         <span asp-validation-for="Timeslot.Date" class="text-danger"></span>
                     </div>
 

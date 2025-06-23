@@ -14,31 +14,34 @@ public class TimeSlotEntryModel : PageModel
     [BindProperty]
     public Timeslot Timeslot { get; set; } = new Timeslot();
 
-   public IActionResult OnPost()
-{
-    // ✅ Set DoctorID from TempData before model validation
-    if (TempData["DoctorID"] != null)
+    public IActionResult OnPost()
     {
-        Timeslot.DoctorID = TempData["DoctorID"].ToString();
-        TempData.Keep("DoctorID");
+        // ✅ Fetch DoctorID from TempData
+        if (TempData["DoctorID"] is string doctorId && !string.IsNullOrEmpty(doctorId))
+        {
+            Timeslot.DoctorID = doctorId;
+            TempData.Keep("DoctorID");
+
+            // ✅ Remove DoctorID from model validation since it's not part of the form
+            ModelState.Remove("Timeslot.DoctorID");
+        }
+        else
+        {
+            ModelState.AddModelError(string.Empty, "Doctor ID is missing. Please login again.");
+            return RedirectToPage("/Login");
+        }
+
+        // ✅ Validate remaining form fields
+        if (!ModelState.IsValid)
+        {
+            return Page();
+        }
+
+        // ✅ Save the timeslot
+        _context.Timeslots.Add(Timeslot);
+        _context.SaveChanges();
+
+        TempData["SuccessMessage"] = "Time slot recorded successfully!";
+        return RedirectToPage("/DoctorDashboard");
     }
-    else
-    {
-        ModelState.AddModelError("", "Doctor ID is missing. Please login again.");
-        return RedirectToPage("/Login");
-    }
-
-    // ✅ Now validation will succeed
-    if (!ModelState.IsValid)
-    {
-        return Page();
-    }
-
-    _context.Timeslots.Add(Timeslot);
-    _context.SaveChanges();
-
-    TempData["SuccessMessage"] = "Time slot recorded successfully!";
-    return RedirectToPage("/DoctorDashboard");
-}
-
 }

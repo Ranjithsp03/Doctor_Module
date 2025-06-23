@@ -8,8 +8,8 @@ namespace Doctor_Module.Timeslots
     {
         public int TimeSlotID { get; set; }
 
-        [Required]
-        public string DoctorID { get; set; } = string.Empty;
+        // [Required]
+        public string DoctorID { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
@@ -30,7 +30,7 @@ namespace Doctor_Module.Timeslots
         [Range(1, 100, ErrorMessage = "Count must be between 1 and 100.")]
         public int Count { get; set; } = 1; // ✅ Number of patients allowed for this slot
 
-        public Doctor Doctor { get; set; }
+        public  Doctor? Doctor { get; set; }
         public TimeSpan GetTimeDifference() => EndTime - StartTime;
     }
 }
