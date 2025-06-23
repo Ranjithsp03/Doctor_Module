@@ -28,9 +28,10 @@
                 <a asp-page="/Appointments/Approve" class="btn btn-warning action-button">
                     ✅ Approve Appointments
                 </a>
-                <a asp-page="/Prescription/Add" class="btn btn-success action-button">
-                    💊 Enter Prescription
-                </a>
+               <a asp-page="/AddPrescription" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-success action-button">
+    💊 Enter Prescription
+</a>
+
             </div>
         </div>
 
@@ -43,10 +44,11 @@
                 <p><strong>Experience:</strong> @Model.Doctor.Experiance years</p>
                 <p><strong>Email:</strong> @Model.Doctor.Email</p>
 
-                <div class="d-grid gap-2 mt-4">
-                    <a asp-page="/EditDoctor" asp-route-id="@Model.Doctor.DoctorID" class="btn btn-secondary">
-                        ✏️ Edit Profile
-                    </a>
+                    <div class="d-grid gap-2 mt-4">
+                        <a class="btn btn-outline-primary" href="/EditDoctor?id=@Model.Doctor.DoctorID">
+        ✏️ Edit Profile
+    </a>
+    
                     <a asp-page="/TimeSlotEntry" class="btn btn-outline-primary">
                         ⏱️ Record Time Slots
                     </a>

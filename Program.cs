@@ -9,7 +9,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddRazorPages();
 // Adding controllers
 builder.Services.AddControllers();
-
+builder.Services.AddHttpClient(); 
 // Adding API explorer for endpoint documentation
 builder.Services.AddEndpointsApiExplorer();
 

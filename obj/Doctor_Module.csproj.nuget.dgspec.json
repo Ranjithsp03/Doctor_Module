@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\u499346\\Project-1\\New folder\\Doctor_Module\\Doctor_Module.csproj": {}
+    "C:\\WnsTraining\\Doctor_Module\\Doctor_Module\\Doctor_Module.csproj": {}
   },
   "projects": {
-    "C:\\Users\\u499346\\Project-1\\New folder\\Doctor_Module\\Doctor_Module.csproj": {
+    "C:\\WnsTraining\\Doctor_Module\\Doctor_Module\\Doctor_Module.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\u499346\\Project-1\\New folder\\Doctor_Module\\Doctor_Module.csproj",
+        "projectUniqueName": "C:\\WnsTraining\\Doctor_Module\\Doctor_Module\\Doctor_Module.csproj",
         "projectName": "Doctor_Module",
-        "projectPath": "C:\\Users\\u499346\\Project-1\\New folder\\Doctor_Module\\Doctor_Module.csproj",
-        "packagesPath": "C:\\Users\\u499346\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\u499346\\Project-1\\New folder\\Doctor_Module\\obj\\",
+        "projectPath": "C:\\WnsTraining\\Doctor_Module\\Doctor_Module\\Doctor_Module.csproj",
+        "packagesPath": "C:\\Users\\u499160\\.nuget\\packages\\",
+        "outputPath": "C:\\WnsTraining\\Doctor_Module\\Doctor_Module\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\u499346\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\u499160\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -82,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\dotnet-sdk-9.0.300-win-x64\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

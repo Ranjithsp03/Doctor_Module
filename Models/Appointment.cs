@@ -1,17 +1,38 @@
-using System;
-using Doctor_Module.Models.Doctor;
-public class Appointment
-{
-    public string AppointmentID { get; set; }
-    public string DoctorID { get; set; }
-    public string Time { get; set; }
-    public string Emergency { get; set; }
+// using System;
+// using System.ComponentModel.DataAnnotations;
 
-    public string Prescription { get; set; }
-    public string Prescription_ID { get; set; }
+// public class Appointment
+// {
+//     [Key]
+//     public int AppointmentID { get; set; }
 
-    public string Patient_ID { get; set; }
-    public string Issue { get; set; }
-    // to write
-    public Doctor doctor { get; set; }
-}
+//     // [Required] 
+//     public string DoctorID { get; set; }
+
+//     [Required]
+//     public string DoctorName { get; set; }
+
+//     [Required]
+//     public string Specialization { get; set; }
+
+//     [Required]
+//     public DateTime Date_Time { get; set; }  // used to check timeslot match
+
+//     public string Emergency { get; set; } = "no";
+
+//     public string Status { get; set; } = "Pending";
+
+//     public string Prescription { get; set; } = "none";
+
+//     public string Prescription_ID { get; set; } = Guid.NewGuid().ToString();
+
+//     [Required]
+//     public string Patient_ID { get; set; }
+
+//     [Required]
+//     public string Issue { get; set; }
+
+//     public int? TimeSlotID { get; set; }  // FK to timeslot
+
+//     public string? Feedback { get; set; }
+// }

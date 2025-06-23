@@ -28,27 +28,18 @@ namespace Doctor_Module.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Appointments",
+                name: "Prescriptions",
                 columns: table => new
                 {
-                    AppointmentID = table.Column<string>(type: "TEXT", nullable: false),
+                    PrescriptionID = table.Column<string>(type: "TEXT", nullable: false),
                     DoctorID = table.Column<string>(type: "TEXT", nullable: false),
-                    Time = table.Column<string>(type: "TEXT", nullable: false),
-                    Emergency = table.Column<string>(type: "TEXT", nullable: false),
-                    Prescription = table.Column<string>(type: "TEXT", nullable: false),
-                    Prescription_ID = table.Column<string>(type: "TEXT", nullable: false),
-                    Patient_ID = table.Column<string>(type: "TEXT", nullable: false),
-                    Issue = table.Column<string>(type: "TEXT", nullable: false)
+                    PatientID = table.Column<string>(type: "TEXT", nullable: false),
+                    Dosage = table.Column<string>(type: "TEXT", nullable: false),
+                    Instructions = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Appointments", x => x.AppointmentID);
-                    table.ForeignKey(
-                        name: "FK_Appointments_Doctors_DoctorID",
-                        column: x => x.DoctorID,
-                        principalTable: "Doctors",
-                        principalColumn: "DoctorID",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Prescriptions", x => x.PrescriptionID);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,11 +67,6 @@ namespace Doctor_Module.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Appointments_DoctorID",
-                table: "Appointments",
-                column: "DoctorID");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Timeslots_DoctorID",
                 table: "Timeslots",
                 column: "DoctorID");
@@ -90,7 +76,7 @@ namespace Doctor_Module.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Appointments");
+                name: "Prescriptions");
 
             migrationBuilder.DropTable(
                 name: "Timeslots");

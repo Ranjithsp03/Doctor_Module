@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Doctor_Module.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250622133404_InitialCreate")]
+    [Migration("20250623113311_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -18,46 +18,6 @@ namespace Doctor_Module.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.6");
-
-            modelBuilder.Entity("Appointment", b =>
-                {
-                    b.Property<string>("AppointmentID")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DoctorID")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Emergency")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Issue")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Patient_ID")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Prescription")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Prescription_ID")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Time")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("AppointmentID");
-
-                    b.HasIndex("DoctorID");
-
-                    b.ToTable("Appointments");
-                });
 
             modelBuilder.Entity("Doctor_Module.Models.Doctor.Doctor", b =>
                 {
@@ -86,6 +46,32 @@ namespace Doctor_Module.Migrations
                     b.HasKey("DoctorID");
 
                     b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("Doctor_Module.Models.Prescription.Prescription", b =>
+                {
+                    b.Property<string>("PrescriptionID")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DoctorID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Dosage")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Instructions")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PatientID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("PrescriptionID");
+
+                    b.ToTable("Prescriptions");
                 });
 
             modelBuilder.Entity("Doctor_Module.Timeslots.Timeslot", b =>
@@ -118,17 +104,6 @@ namespace Doctor_Module.Migrations
                     b.HasIndex("DoctorID");
 
                     b.ToTable("Timeslots");
-                });
-
-            modelBuilder.Entity("Appointment", b =>
-                {
-                    b.HasOne("Doctor_Module.Models.Doctor.Doctor", "doctor")
-                        .WithMany()
-                        .HasForeignKey("DoctorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("doctor");
                 });
 
             modelBuilder.Entity("Doctor_Module.Timeslots.Timeslot", b =>
