@@ -32,6 +32,10 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRkUHJlc2NyaXB0aW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/WnsTraining/Doctor_Module/Doctor_Module/Pages/ApproveAppointments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXBwcm92ZUFwcG9pbnRtZW50cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/WnsTraining/Doctor_Module/Doctor_Module/Pages/DoctorDashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdG9yRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

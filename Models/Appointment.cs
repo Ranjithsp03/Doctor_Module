@@ -1,38 +1,31 @@
-// using System;
-// using System.ComponentModel.DataAnnotations;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+using Microsoft.EntityFrameworkCore;
 
-// public class Appointment
-// {
-//     [Key]
-//     public int AppointmentID { get; set; }
+namespace Appointments.Model;
 
-//     // [Required] 
-//     public string DoctorID { get; set; }
+[Table("Appointments")]
+public class Appointment
+{
+    [Key]
+    public Guid AppointmentId { get; set; }
 
-//     [Required]
-//     public string DoctorName { get; set; }
+    public string PatientId { get; set; }
+    public string DoctorId{ get; set; }
+    
+    [MaxLength(120)]
+    public string? Remarks { get; set; }
+    public string Reason { get; set; }
+    public bool PaymentStatus { get; set; } = false;      
+    public bool IsCancelled { get; set; } = false;        
 
-//     [Required]
-//     public string Specialization { get; set; }
 
-//     [Required]
-//     public DateTime Date_Time { get; set; }  // used to check timeslot match
+    public DateTime TimeSlot { get; set; }
 
-//     public string Emergency { get; set; } = "no";
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+    public DateTimeOffset CreatedAt { get; } = DateTimeOffset.UtcNow;
 
-//     public string Status { get; set; } = "Pending";
-
-//     public string Prescription { get; set; } = "none";
-
-//     public string Prescription_ID { get; set; } = Guid.NewGuid().ToString();
-
-//     [Required]
-//     public string Patient_ID { get; set; }
-
-//     [Required]
-//     public string Issue { get; set; }
-
-//     public int? TimeSlotID { get; set; }  // FK to timeslot
-
-//     public string? Feedback { get; set; }
-// }
+    public Appointment(){}
+}

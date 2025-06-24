@@ -1,3 +1,4 @@
+using Appointments.Model;
 using Doctor_Module.Models.Doctor;
 using Doctor_Module.Models.Prescription;
 using Doctor_Module.Timeslots;
@@ -10,6 +11,7 @@ public class AppDbContext : DbContext
     // public DbSet<Appointment> Appointments { get; set; }
     public DbSet<Timeslot> Timeslots { get; set; }
     public DbSet<Prescription> Prescriptions { get; set; }
+   public DbSet<Appointment>Appointments{ get; set; }
 
     //dbcontext keywords
 

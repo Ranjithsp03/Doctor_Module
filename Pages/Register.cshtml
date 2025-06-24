@@ -1,5 +1,6 @@
 @page
 @model RegisterModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Doctor Registration";
 }
@@ -24,8 +25,10 @@
             </div>
 
             <div class="mb-3">
-                <label asp-for="Doctor.Specialization" class="form-label"></label>
-                <input asp-for="Doctor.Specialization" class="form-control" />
+                <label asp-for="Doctor.Specialization" class="form-label">Specialization</label>
+                <select asp-for="Doctor.Specialization" asp-items="Model.Specializations" class="form-select">
+                    <option value="">-- Select Specialization --</option>
+                </select>
                 <span asp-validation-for="Doctor.Specialization" class="text-danger"></span>
             </div>
 

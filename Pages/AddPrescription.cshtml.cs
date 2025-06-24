@@ -35,6 +35,7 @@ public IActionResult OnGet()
             return RedirectToPage("/Login");
         }
 
+
         string doctorId = TempData["DoctorID"].ToString();
         TempData.Keep("DoctorID");
 

@@ -25,9 +25,10 @@
                 <a asp-page="/Appointments/Today" class="btn btn-primary action-button">
                     📅 View Today’s Appointments
                 </a>
-                <a asp-page="/Appointments/Approve" class="btn btn-warning action-button">
-                    ✅ Approve Appointments
+               <a asp-page="/ApproveAppointments" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-warning action-button">
+                ✅ Approve Appointments
                 </a>
+
                <a asp-page="/AddPrescription" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-success action-button">
     💊 Enter Prescription
 </a>
