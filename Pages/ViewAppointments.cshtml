@@ -1,0 +1,45 @@
+@page
+@model Doctor_Module.Pages.ViewAppointmentsModel
+@{
+    ViewData["Title"] = "Approved Appointments";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container mt-5">
+    <h2 class="mb-4 text-center">✅ Approved Appointments</h2>
+
+    @if (Model.Appointments != null && Model.Appointments.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var appt in Model.Appointments)
+            {
+                <div class="col">
+                    <div class="card shadow rounded border-success">
+                        <div class="card-body">
+                            <h5 class="card-title">Patient ID: <strong>@appt.PatientId</strong></h5>
+                            <p class="card-text mb-1"><strong>Reason:</strong> @appt.Reason</p>
+                            <p class="card-text"><strong>Time Slot:</strong> @appt.TimeSlot.ToString("f")</p>
+
+                            <div class="d-grid gap-2 mt-3">
+                                <form method="get" asp-page="/PatientInfo" asp-route-patientId="@appt.PatientId">
+                                    <button type="submit" class="btn btn-info w-100">🧑 Patient Info</button>
+                                </form>
+                                <form method="get" asp-page="/AddPrescription" asp-route-appointmentId="@appt.AppointmentId">
+                                    <button type="submit" class="btn btn-primary w-100">💊 Prescription</button>
+                                </form>
+                                <form method="post" asp-page-handler="Cancel" asp-route-id="@appt.AppointmentId">
+                                    <button type="submit" class="btn btn-danger w-100">❌ Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center">No approved appointments available.</div>
+    }
+</div>

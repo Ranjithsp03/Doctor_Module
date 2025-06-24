@@ -1,58 +1,70 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Net.Http;
-using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
+using Appointments.Model; // ✅ Use the correct AppointmentLog model
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-public class ApproveAppointmentsModel : PageModel
+namespace Doctor_Module.Pages
 {
-    private readonly HttpClient _httpClient;
-
-    public ApproveAppointmentsModel(IHttpClientFactory httpClientFactory)
+    public class ApproveAppointmentsModel : PageModel
     {
-        _httpClient = httpClientFactory.CreateClient();
-    }
+        private readonly AppDbContext _context;
 
-    public List<AppointmentViewModel> Appointments { get; set; }
-
-    public async Task<IActionResult> OnGetAsync()
-    {
-        if (TempData["DoctorID"] == null)
+        public ApproveAppointmentsModel(AppDbContext context)
         {
-            TempData["Error"] = "Doctor ID missing. Please login again.";
-            return RedirectToPage("/Login");
+            _context = context;
         }
 
-        string doctorId = TempData["DoctorID"].ToString();
-        TempData.Keep("DoctorID");
+        [BindProperty(SupportsGet = true)]
+        public string DoctorId { get; set; }
 
-        var response = await _httpClient.GetAsync($"http://localhost:5298/api/Appointment/doctor/{doctorId}");
-        if (response.IsSuccessStatusCode)
+        public List<Appointment> Appointments { get; set; }
+
+        public async Task OnGetAsync()
         {
-            var json = await response.Content.ReadAsStringAsync();
-            Appointments = JsonSerializer.Deserialize<List<AppointmentViewModel>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            Appointments = await _context.Appointments
+                .Where(a => a.DoctorId == DoctorId && !a.IsApproved && !a.IsCancelled)
+                .OrderBy(a => a.TimeSlot)
+                .ToListAsync();
         }
 
-        return Page();
-    }
+        public async Task<IActionResult> OnPostApproveAsync(Guid id)
+        {
+            var appointment = await _context.Appointments.FindAsync(id);
+            if (appointment == null)
+                return NotFound();
 
-    public async Task<IActionResult> OnPostApproveAsync(Guid id)
-    {
-        var response = await _httpClient.PutAsync($"http://localhost:5298/api/Appointment/{id}/approve", null);
-        return RedirectToPage();
-    }
+            appointment.IsApproved = true;
 
-    public async Task<IActionResult> OnPostDeclineAsync(Guid id)
-    {
-        var remarks = new StringContent("\"Declined by doctor\"", System.Text.Encoding.UTF8, "application/json");
-        var response = await _httpClient.PutAsync($"http://localhost:5298/api/Appointment/{id}/decline", remarks);
-        return RedirectToPage();
-    }
+            // ✅ Insert into AppointmentLog from Appointments.Model
+            var log = new AppointmentLog
+            {
+                AppointmentId = appointment.AppointmentId,
+                PatientId = appointment.PatientId,
+                Reason = appointment.Reason,
+                TimeSlot = appointment.TimeSlot,
+                ApprovedAt = DateTime.UtcNow
+            };
 
-    public class AppointmentViewModel
-    {
-        public Guid AppointmentId { get; set; }
-        public string PatientId { get; set; }
-        public string Reason { get; set; }
-        public DateTime TimeSlot { get; set; }
+            _context.AppointmentLogs.Add(log);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage(new { doctorId = appointment.DoctorId });
+        }
+
+        public async Task<IActionResult> OnPostDeclineAsync(Guid id)
+        {
+            var appointment = await _context.Appointments.FindAsync(id);
+            if (appointment == null)
+                return NotFound();
+
+            appointment.IsCancelled = true;
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage(new { doctorId = appointment.DoctorId });
+        }
     }
 }

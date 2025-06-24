@@ -12,7 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<Timeslot> Timeslots { get; set; }
     public DbSet<Prescription> Prescriptions { get; set; }
    public DbSet<Appointment>Appointments{ get; set; }
-
+    public DbSet<AppointmentLog> AppointmentLogs { get; set; }
     //dbcontext keywords
 
 }

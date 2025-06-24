@@ -12,6 +12,23 @@ namespace Doctor_Module.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AppointmentLogs",
+                columns: table => new
+                {
+                    LogId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PatientId = table.Column<string>(type: "TEXT", nullable: false),
+                    Reason = table.Column<string>(type: "TEXT", nullable: false),
+                    TimeSlot = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    ApprovedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    AppointmentId = table.Column<Guid>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppointmentLogs", x => x.LogId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Appointments",
                 columns: table => new
                 {
@@ -22,6 +39,7 @@ namespace Doctor_Module.Migrations
                     Reason = table.Column<string>(type: "TEXT", nullable: false),
                     PaymentStatus = table.Column<bool>(type: "INTEGER", nullable: false),
                     IsCancelled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: false),
                     TimeSlot = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
@@ -93,6 +111,9 @@ namespace Doctor_Module.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "AppointmentLogs");
+
             migrationBuilder.DropTable(
                 name: "Appointments");
 

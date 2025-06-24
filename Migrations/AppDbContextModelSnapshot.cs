@@ -26,6 +26,9 @@ namespace Doctor_Module.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("IsCancelled")
                         .HasColumnType("INTEGER");
 
@@ -50,6 +53,34 @@ namespace Doctor_Module.Migrations
                     b.HasKey("AppointmentId");
 
                     b.ToTable("Appointments");
+                });
+
+            modelBuilder.Entity("Appointments.Model.AppointmentLog", b =>
+                {
+                    b.Property<int>("LogId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTimeOffset>("ApprovedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PatientId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("TimeSlot")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("LogId");
+
+                    b.ToTable("AppointmentLogs");
                 });
 
             modelBuilder.Entity("Doctor_Module.Models.Doctor.Doctor", b =>

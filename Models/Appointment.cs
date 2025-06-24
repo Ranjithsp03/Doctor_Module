@@ -1,8 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
 
 namespace Appointments.Model;
 
@@ -13,19 +11,19 @@ public class Appointment
     public Guid AppointmentId { get; set; }
 
     public string PatientId { get; set; }
-    public string DoctorId{ get; set; }
-    
+    public string DoctorId { get; set; }
+
     [MaxLength(120)]
     public string? Remarks { get; set; }
     public string Reason { get; set; }
-    public bool PaymentStatus { get; set; } = false;      
-    public bool IsCancelled { get; set; } = false;        
-
+    public bool PaymentStatus { get; set; } = false;
+    public bool IsCancelled { get; set; } = false;
+    public bool IsApproved { get; set; } = false;
 
     public DateTime TimeSlot { get; set; }
 
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTimeOffset CreatedAt { get; } = DateTimeOffset.UtcNow;
 
-    public Appointment(){}
+    public Appointment() { }
 }
