@@ -17,9 +17,14 @@
     }
 </style>
 
+@if (Model.Doctor != null)
+{
+<h2 class="text-center mt-4">Welcome Dr. @Model.Doctor.Name</h2>
+}
+ 
 <div class="container-fluid full-height d-flex align-items-center justify-content-center">
     <div class="row w-100">
-        <!-- Left Column: Action Buttons -->
+       
         <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
             <div class="w-75 d-grid gap-3">
                 <a asp-page="/viewAppointments" class="btn btn-primary action-button">

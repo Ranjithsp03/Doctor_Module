@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Doctor_Module.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250624170801_InitialCreate")]
+    [Migration("20250625041209_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
