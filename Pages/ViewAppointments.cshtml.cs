@@ -16,26 +16,32 @@ namespace Doctor_Module.Pages
         {
             _context = context;
         }
+        [BindProperty(SupportsGet = true)]
+        public DateTime? FilterDate { get; set; }
+ 
 
         public List<AppointmentLog> Appointments { get; set; }
+        public string DoctorId { get; set; }
 
-  public async Task OnGetAsync(string doctorId)
-{
-    if (string.IsNullOrEmpty(doctorId))
-    {
-        Appointments = new List<AppointmentLog>();
-        return;
-    }
 
-            // ✅ Now this will work because ApprovedAt is DateTime
+        public async Task OnGetAsync(string doctorId)
+        {
+            DoctorId = doctorId;
+
+            if (string.IsNullOrEmpty(doctorId))
+            {
+                Appointments = new List<AppointmentLog>();
+                return;
+            }
+
             Appointments = await _context.AppointmentLogs
                 .Where(a => a.DoctorID == doctorId)
                 .ToListAsync();
             Appointments = Appointments
         .OrderByDescending(a => a.ApprovedAt.UtcDateTime)
         .ToList();
-}
-
+    
+        }
         public async Task<IActionResult> OnPostCancelAsync(Guid id)
         {
             var log = await _context.AppointmentLogs.FindAsync(id);

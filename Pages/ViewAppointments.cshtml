@@ -8,7 +8,11 @@
 
 <div class="container mt-5">
     <h2 class="mb-4 text-center">✅ Approved Appointments</h2>
-      
+       <div class="mb-4"></div>
+        <a asp-page="/DoctorDashboard" asp-route-doctorId="@Model.DoctorId" class="btn btn-secondary">
+            ← Back to Dashboard
+        </a>
+    </div>
     @if (Model.Appointments != null && Model.Appointments.Any())
     {
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
