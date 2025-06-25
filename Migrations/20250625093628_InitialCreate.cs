@@ -20,8 +20,10 @@ namespace Doctor_Module.Migrations
                     PatientId = table.Column<string>(type: "TEXT", nullable: false),
                     Reason = table.Column<string>(type: "TEXT", nullable: false),
                     TimeSlot = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DoctorID = table.Column<string>(type: "TEXT", nullable: false),
                     ApprovedAt = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
-                    AppointmentId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    AppointmentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    IsApproved = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

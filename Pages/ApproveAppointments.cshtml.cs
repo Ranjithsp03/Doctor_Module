@@ -44,6 +44,7 @@ namespace Doctor_Module.Pages
             {
                 AppointmentId = appointment.AppointmentId,
                 PatientId = appointment.PatientId,
+                DoctorID=appointment.DoctorId,
                 Reason = appointment.Reason,
                 TimeSlot = appointment.TimeSlot,
                 ApprovedAt = DateTime.UtcNow

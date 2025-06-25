@@ -8,13 +8,18 @@
 
 <div class="container mt-5">
     <h2 class="mb-4 text-center">📋 Approve Appointments</h2>
-
+      <div class="mb-4"></div>
+        <a asp-page="/DoctorDashboard" asp-route-doctorId="@Model.DoctorId" class="btn btn-secondary">
+            ← Back to Dashboard
+        </a>
+    </div>
     @if (Model.Appointments != null && Model.Appointments.Any())
     {
         <table class="table table-bordered table-hover">
             <thead class="table-dark">
                 <tr>
                     <th>Patient ID</th>
+                    <th>Doctor ID</th>
                     <th>Reason</th>
                     <th>Timeslot</th>
                     <th>Actions</th>
@@ -25,6 +30,7 @@
                 {
                     <tr>
                         <td>@appointment.PatientId</td>
+                        <td>@appointment.DoctorId</td>
                         <td>@appointment.Reason</td>
                         <td>@appointment.TimeSlot.ToString("f")</td>
                         <td>

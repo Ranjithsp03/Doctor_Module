@@ -19,15 +19,23 @@ namespace Doctor_Module.Pages
 
         public List<AppointmentLog> Appointments { get; set; }
 
-       public async Task OnGetAsync()
+  public async Task OnGetAsync(string doctorId)
 {
-    Appointments = await _context.AppointmentLogs
-        .ToListAsync(); // ✅ fetch first
+    if (string.IsNullOrEmpty(doctorId))
+    {
+        Appointments = new List<AppointmentLog>();
+        return;
+    }
 
-    Appointments = Appointments
-        .OrderByDescending(a => a.ApprovedAt) // ✅ sort in memory
+            // ✅ Now this will work because ApprovedAt is DateTime
+            Appointments = await _context.AppointmentLogs
+                .Where(a => a.DoctorID == doctorId)
+                .ToListAsync();
+            Appointments = Appointments
+        .OrderByDescending(a => a.ApprovedAt.UtcDateTime)
         .ToList();
 }
+
         public async Task<IActionResult> OnPostCancelAsync(Guid id)
         {
             var log = await _context.AppointmentLogs.FindAsync(id);

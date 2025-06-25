@@ -27,7 +27,7 @@
        
         <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
             <div class="w-75 d-grid gap-3">
-                <a asp-page="/viewAppointments" class="btn btn-primary action-button">
+                <a asp-page="/viewAppointments" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-primary action-button">
                     📅 View Today’s Appointments
                 </a>
                <a asp-page="/ApproveAppointments" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-warning action-button">

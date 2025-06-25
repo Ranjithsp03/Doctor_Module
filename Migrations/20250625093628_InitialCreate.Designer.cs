@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Doctor_Module.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250625041209_InitialCreate")]
+    [Migration("20250625093628_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -69,6 +69,13 @@ namespace Doctor_Module.Migrations
 
                     b.Property<DateTimeOffset>("ApprovedAt")
                         .HasColumnType("TEXT");
+
+                    b.Property<string>("DoctorID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("PatientId")
                         .IsRequired()

@@ -55,12 +55,25 @@ public class EditDoctorModel : PageModel
             return RedirectToPage("/DoctorDashboard");
         }
  
+        // ✅ Check if password is entered
+        if (string.IsNullOrEmpty(Doctor.Password))
+        {
+            TempData["Error"] = "Please enter the password.";
+            return Page();
+        }
+ 
+        // ✅ Check if the entered password matches the existing password
+        if (Doctor.Password != existingDoctor.Password)
+        {
+            TempData["Error"] = "Incorrect password. Please enter the correct password.";
+            return Page();
+        }
+ 
         // ✅ Update fields
         existingDoctor.Name = Doctor.Name;
         existingDoctor.Specialization = Doctor.Specialization;
         existingDoctor.Experiance = Doctor.Experiance;
         existingDoctor.Email = Doctor.Email;
-        existingDoctor.Password = Doctor.Password;
  
         await _context.SaveChangesAsync();
  
@@ -68,3 +81,4 @@ public class EditDoctorModel : PageModel
         return RedirectToPage("/DoctorDashboard");
     }
 }
+ 

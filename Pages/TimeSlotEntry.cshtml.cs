@@ -13,7 +13,25 @@ public class TimeSlotEntryModel : PageModel
 
     [BindProperty]
     public Timeslot Timeslot { get; set; } = new Timeslot();
-
+  public IActionResult OnGet()
+    {
+        // Set the date to today's date
+        Timeslot.Date = DateTime.Today;
+ 
+        // Fetch DoctorID from TempData
+        if (TempData["DoctorID"] is string doctorId && !string.IsNullOrEmpty(doctorId))
+        {
+            Timeslot.DoctorID = doctorId;
+            TempData.Keep("DoctorID");
+        }
+        else
+        {
+            TempData["Error"] = "Doctor ID is missing. Please login again.";
+            return RedirectToPage("/Login");
+        }
+ 
+        return Page();
+    }
     public IActionResult OnPost()
     {
         // ✅ Fetch DoctorID from TempData

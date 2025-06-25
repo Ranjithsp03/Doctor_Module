@@ -24,16 +24,31 @@ public class RegisterModel : PageModel
 
 
     public async Task<IActionResult> OnPostAsync()
+{
+    if (!ModelState.IsValid)
+        return Page();
+ 
+    // Check if DoctorID already exists
+    var existingDoctorByID = await _context.Doctors.FindAsync(Doctor.DoctorID);
+    if (existingDoctorByID != null)
     {
-        if (!ModelState.IsValid)
-            return Page();
-
-        _context.Doctors.Add(Doctor);
-        await _context.SaveChangesAsync();
-
-        // Redirect to login or dashboard after success
-        return RedirectToPage("/Login");
+        ModelState.AddModelError("Doctor.DoctorID", "This Doctor ID already exists.");
+        return Page();
     }
+ 
+    // Check if Email already exists
+    var existingDoctorByEmail = _context.Doctors.FirstOrDefault(d => d.Email == Doctor.Email);
+    if (existingDoctorByEmail != null)
+    {
+        ModelState.AddModelError("Doctor.Email", "This email is already registered.");
+        return Page();
+    }
+ 
+    _context.Doctors.Add(Doctor);
+    await _context.SaveChangesAsync();
+ 
+    return RedirectToPage("/Login");
+}
     private void LoadSpecializations()
         {
             Specializations = new List<SelectListItem>
