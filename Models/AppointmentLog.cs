@@ -12,6 +12,7 @@ public class AppointmentLog
     public int LogId { get; set; }
 
     public string PatientId { get; set; }
+    
     public string Reason { get; set; }
     public DateTime TimeSlot { get; set; }
     public string DoctorID { get; set; }

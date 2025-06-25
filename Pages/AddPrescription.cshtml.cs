@@ -1,7 +1,8 @@
-using Doctor_Module.Models;
+// AddPrescription.cshtml.cs
 using Doctor_Module.Models.Prescription;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Threading.Tasks;
 
 public class AddPrescriptionModel : PageModel
 {
@@ -11,22 +12,24 @@ public class AddPrescriptionModel : PageModel
     {
         _context = context;
     }
-[BindProperty]
-public Prescription Prescription { get; set; }
 
-[BindProperty(SupportsGet = true)]
-public string DoctorId { get; set; }
+    [BindProperty]
+    public Prescription Prescription { get; set; }
 
-public IActionResult OnGet()
-{
-    if (!string.IsNullOrEmpty(DoctorId))
+    [BindProperty(SupportsGet = true)]
+    public string DoctorId { get; set; }
+
+    public IActionResult OnGet()
     {
-        TempData["DoctorID"] = DoctorId;
+        if (!string.IsNullOrEmpty(DoctorId))
+        {
+            TempData["DoctorID"] = DoctorId;
+        }
+
+        TempData.Keep("DoctorID");
+        return Page();
     }
 
-    TempData.Keep("DoctorID");
-    return Page();
-}
     public async Task<IActionResult> OnPostAsync()
     {
         if (TempData["DoctorID"] == null)
@@ -34,7 +37,6 @@ public IActionResult OnGet()
             TempData["Error"] = "Doctor ID is missing. Please login again.";
             return RedirectToPage("/Login");
         }
-
 
         string doctorId = TempData["DoctorID"].ToString();
         TempData.Keep("DoctorID");
@@ -45,7 +47,7 @@ public IActionResult OnGet()
         _context.Prescriptions.Add(Prescription);
         await _context.SaveChangesAsync();
 
-        TempData["SuccessMessage"] = "Prescription submitted successfully!";
-        return RedirectToPage("/DoctorDashboard");
+        TempData["Success"] = "Prescription submitted successfully!";
+        return RedirectToPage("/ViewAppointments", new { doctorId = doctorId });
     }
 }

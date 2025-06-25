@@ -30,6 +30,12 @@
                     </div>
 
                     <div class="mb-3">
+                        <label asp-for="Prescription.PatientName" class="form-label">Patient Name</label>
+                        <input asp-for="Prescription.PatientName" class="form-control" />
+                        <span asp-validation-for="Prescription.PatientName" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
                         <label asp-for="Prescription.Dosage" class="form-label">Dosage</label>
                         <input asp-for="Prescription.Dosage" class="form-control" />
                         <span asp-validation-for="Prescription.Dosage" class="text-danger"></span>

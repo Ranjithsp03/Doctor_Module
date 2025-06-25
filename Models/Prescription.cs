@@ -12,7 +12,7 @@ namespace Doctor_Module.Models.Prescription
 
         [Required]
         public string PatientID { get; set; }
-
+        public string PatientName { get; set; }
         [Required]
         public string Dosage { get; set; }
 

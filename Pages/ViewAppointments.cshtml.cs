@@ -33,11 +33,23 @@ namespace Doctor_Module.Pages
                 Appointments = new List<AppointmentLog>();
                 return;
             }
+             if (!FilterDate.HasValue)
+    {
+        FilterDate = DateTime.Today;
+    }
 
-            Appointments = await _context.AppointmentLogs
-                .Where(a => a.DoctorID == doctorId)
-                .ToListAsync();
-            Appointments = Appointments
+   
+ var selectedDate = FilterDate.Value.Date;
+    var nextDate = selectedDate.AddDays(1);
+
+    var query = await _context.AppointmentLogs
+        .Where(a => a.DoctorID == doctorId &&
+                    a.TimeSlot >= selectedDate &&
+                    a.TimeSlot < nextDate)
+        .ToListAsync(); // still async and SQL-safe
+
+    // in-memory ordering
+    Appointments = query
         .OrderByDescending(a => a.ApprovedAt.UtcDateTime)
         .ToList();
     

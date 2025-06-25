@@ -8,11 +8,32 @@
 
 <div class="container mt-5">
     <h2 class="mb-4 text-center">✅ Approved Appointments</h2>
-       <div class="mb-4"></div>
-        <a asp-page="/DoctorDashboard" asp-route-doctorId="@Model.DoctorId" class="btn btn-secondary">
-            ← Back to Dashboard
-        </a>
+
+    <div class="mb-4">
+        <form method="get" class="row g-3 align-items-center">
+            <input type="hidden" name="doctorId" value="@Model.DoctorId" />
+
+            <div class="col-auto">
+                <label for="FilterDate" class="form-label">Filter by Date:</label>
+                <input type="date" id="FilterDate" name="FilterDate" value="@(Model.FilterDate?.ToString("yyyy-MM-dd"))" class="form-control" />
+            </div>
+
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mt-4">🔍 Filter</button>
+            </div>
+
+            <div class="col-auto">
+                <a asp-page="/ViewAppointments" asp-route-doctorId="@Model.DoctorId" class="btn btn-secondary mt-4">⟲ Reset</a>
+            </div>
+        </form>
+
+        <div class="mt-3">
+            <a asp-page="/DoctorDashboard" asp-route-doctorId="@Model.DoctorId" class="btn btn-secondary">
+                ← Back to Dashboard
+            </a>
+        </div>
     </div>
+
     @if (Model.Appointments != null && Model.Appointments.Any())
     {
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -32,9 +53,6 @@
                                 </form>
                                 <form method="get" asp-page="/AddPrescription" asp-route-appointmentId="@appt.AppointmentId">
                                     <button type="submit" class="btn btn-primary w-100">💊 Prescription</button>
-                                </form>
-                                <form method="post" asp-page-handler="Cancel" asp-route-id="@appt.AppointmentId">
-                                    <button type="submit" class="btn btn-danger w-100">❌ Cancel</button>
                                 </form>
                             </div>
                         </div>
