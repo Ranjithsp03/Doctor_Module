@@ -48,6 +48,6 @@ public class AddPrescriptionModel : PageModel
         await _context.SaveChangesAsync();
 
         TempData["Success"] = "Prescription submitted successfully!";
-        return RedirectToPage("/ViewAppointments", new { doctorId = doctorId });
+        return RedirectToPage("/DoctorDashboard", new { doctorId = doctorId });
     }
 }

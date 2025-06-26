@@ -3,63 +3,155 @@
 @{
     ViewData["Title"] = "Doctor Dashboard";
 }
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-<style>
-    .full-height {
-        height: 100vh;
-    }
-
-    .action-button {
-        font-size: 1.1rem;
-        padding: 15px;
-    }
-</style>
-
-@if (Model.Doctor != null)
-{
-<h2 class="text-center mt-4">Welcome Dr. @Model.Doctor.Name</h2>
-}
  
-<div class="container-fluid full-height d-flex align-items-center justify-content-center">
-    <div class="row w-100">
-       
-        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center">
-            <div class="w-75 d-grid gap-3">
-                <a asp-page="/viewAppointments" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-primary action-button">
-                    📅 View Today’s Appointments
-                </a>
-               <a asp-page="/ApproveAppointments" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-warning action-button">
-                ✅ Approve Appointments
-                </a>
-
-               <a asp-page="/AddPrescription" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-success action-button">
-    💊 Enter Prescription
-</a>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+ 
+    <style>
+        body {
+            background-image: url('https://tse1.mm.bing.net/th/id/OIP.VFad098g1cX0-C0Sny4M-AHaE8?w=508&h=339&rs=1&pid=ImgDetMain&cb=idpwebp2&o=7&rm=3');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            min-height: 100vh;
+        }
+ 
+        .dashboard {
+            padding: 40px 20px;
+        }
+ 
+        .grid-card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+ 
+        .action-btn {
+            font-size: 1rem;
+            padding: 12px;
+            width: 100%;
+        }
+ 
+        .flip-container {
+            perspective: 1000px;
+        }
+ 
+        .flipper {
+            position: relative;
+            transition: 0.6s;
+            transform-style: preserve-3d;
+        }
+ 
+        .flip-container.flip .flipper {
+            transform: rotateY(180deg);
+        }
+ 
+        .front, .back {
+            position: absolute;
+            width: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.95);
+            text-align: center;
+        }
+ 
+        .front {
+            z-index: 2;
+        }
+ 
+        .back {
+            transform: rotateY(180deg);
+        }
+ 
+        .doctor-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+ 
+        .info-label {
+            font-weight: 600;
+            color: #333;
+        }
+    </style>
+ 
+    <script>
+        function toggleProfile() {
+            var container = document.getElementById("flipContainer");
+            container.classList.toggle("flip");
+        }
+    </script>
+</head>
+<body>
+    <div class="container dashboard">
+        @if (Model.Doctor != null)
+        {
+            <div class="text-center text-white mb-5">
+                <h2>👋 Welcome, Dr. @Model.Doctor.Name!</h2>
             </div>
-        </div>
-
-        <!-- Right Column: Doctor Info -->
-        <div class="col-md-6 d-flex justify-content-center align-items-center">
-            <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
-                <h4 class="mb-3 text-center">Doctor Profile</h4>
-                <p><strong>Name:</strong> @Model.Doctor.Name</p>
-                <p><strong>Specialization:</strong> @Model.Doctor.Specialization</p>
-                <p><strong>Experience:</strong> @Model.Doctor.Experiance years</p>
-                <p><strong>Email:</strong> @Model.Doctor.Email</p>
-
-                    <div class="d-grid gap-2 mt-4">
-                        <a class="btn btn-outline-primary" href="/EditDoctor?id=@Model.Doctor.DoctorID">
-        ✏️ Edit Profile
-    </a>
-    
-                    <a asp-page="/TimeSlotEntry" class="btn btn-outline-primary">
+        }
+ 
+        <div class="row justify-content-between align-items-start">
+            <!-- Left Column -->
+            <div class="col-md-4 mb-4">
+                <div class="grid-card">
+                    <h5 class="mb-3">Manage Appointments</h5>
+                    <a asp-page="/viewAppointments" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-outline-success action-btn mb-2">
+                        📅 View Today’s Appointments
+                    </a>
+                    <a asp-page="/ApproveAppointments" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-outline-success action-btn mb-2">
+                        ✅ Approve Appointments
+                    </a>
+                </div>
+            </div>
+ 
+            <!-- Center Column (Doctor Profile Flip) -->
+            <div class="col-md-4 mb-4">
+                <div id="flipContainer" class="flip-container" onclick="toggleProfile()">
+                    <div class="flipper">
+                        <!-- Front Side -->
+                        <div class="front">
+                            <img src="https://cdn-icons-png.flaticon.com/512/6073/6073873.png" class="doctor-icon" alt="Doctor Icon" />
+                            <h5>Dr. @Model.Doctor.Name's Profile</h5>
+                            <p class="text-muted">Click to view details</p>
+                        </div>
+ 
+                        <!-- Back Side -->
+                        <div class="back">
+                            <h5 class="mb-3">Dr. @Model.Doctor.Name</h5>
+                            <p><span class="info-label">Specialization:</span> @Model.Doctor.Specialization</p>
+                            <p><span class="info-label">Experience:</span> @Model.Doctor.Experiance years</p>
+                            <p><span class="info-label">Email:</span> @Model.Doctor.Email</p>
+                            <a class="btn btn-outline-primary mt-2" href="/EditDoctor?id=@Model.Doctor.DoctorID">✏️ Edit Profile</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <!-- Right Column -->
+            <div class="col-md-4 mb-4">
+                <div class="grid-card">
+                    <h5 class="mb-3">Patient Care</h5>
+                    <a asp-page="/AddPrescription" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-success action-btn mb-2">
+                        💊 Enter Prescription
+                    </a>
+                    <a asp-page="/TimeSlotEntry" asp-route-doctorId="@TempData["DoctorID"]" class="btn btn-outline-success action-btn">
                         ⏱️ Record Time Slots
                     </a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</body>
+</html>
