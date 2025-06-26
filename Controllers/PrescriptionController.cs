@@ -18,7 +18,6 @@ namespace Doctor_Module.Controllers
             _context = context;
         }
 
-        // GET: api/prescription/{id}
         [HttpGet("{id}")]
         public async Task<ActionResult<Prescription>> GetPrescriptionById(string id)
         {

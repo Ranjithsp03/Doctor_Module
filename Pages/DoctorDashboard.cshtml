@@ -32,6 +32,7 @@
             border-radius: 10px;
             padding: 25px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s ease-in-out;
         }
  
         .action-btn {
@@ -84,6 +85,19 @@
             font-weight: 600;
             color: #333;
         }
+        .grid-card:hover {
+    box-shadow: 0 0 15px 5px rgba(102, 217, 232, 0.6);
+}
+
+.flip-container {
+    perspective: 1000px;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.flip-container:hover {
+    box-shadow: 0 0 15px 5px rgba(102, 217, 232, 0.6); 
+}
+
     </style>
  
     <script>
