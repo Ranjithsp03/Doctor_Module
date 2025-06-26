@@ -72,6 +72,7 @@ namespace Doctor_Module.Migrations
                     PrescriptionID = table.Column<string>(type: "TEXT", nullable: false),
                     DoctorID = table.Column<string>(type: "TEXT", nullable: false),
                     PatientID = table.Column<string>(type: "TEXT", nullable: false),
+                    PatientName = table.Column<string>(type: "TEXT", nullable: false),
                     Dosage = table.Column<string>(type: "TEXT", nullable: false),
                     Instructions = table.Column<string>(type: "TEXT", nullable: false)
                 },

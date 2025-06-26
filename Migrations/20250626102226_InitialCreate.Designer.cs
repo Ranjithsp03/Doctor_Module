@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Doctor_Module.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250625161243_InitialCreate")]
+    [Migration("20250626102226_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -140,6 +140,10 @@ namespace Doctor_Module.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PatientID")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PatientName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

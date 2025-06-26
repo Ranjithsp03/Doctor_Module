@@ -140,6 +140,10 @@ namespace Doctor_Module.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("PatientName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("PrescriptionID");
 
                     b.ToTable("Prescriptions");

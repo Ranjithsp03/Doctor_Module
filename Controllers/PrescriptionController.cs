@@ -1,11 +1,14 @@
-using Doctor_Module.Models;
+using Doctor_Module.Models.Prescription;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Doctor_Module.Models.Prescription;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+
 namespace Doctor_Module.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class PrescriptionController : ControllerBase
     {
         private readonly AppDbContext _context;
@@ -15,37 +18,49 @@ namespace Doctor_Module.Controllers
             _context = context;
         }
 
-        [HttpPost("add")]
-        public async Task<IActionResult> AddPrescription([FromBody] Prescription prescription)
+        // GET: api/prescription/{id}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Prescription>> GetPrescriptionById(string id)
         {
-            var doctor = await _context.Doctors.FindAsync(prescription.DoctorID);
-            if (doctor == null)
-                return BadRequest("Invalid Doctor ID");
+            var prescription = await _context.Prescriptions.FindAsync(id);
+            if (prescription == null)
+            {
+                return NotFound();
+            }
+            return prescription;
+        }
 
-            // Optional: Validate patient if you have a Patient table
-            // var patient = await _context.Patients.FindAsync(prescription.PatientID);
-
+        // POST: api/prescription
+        [HttpPost]
+        public async Task<ActionResult<Prescription>> CreatePrescription(Prescription prescription)
+        {
+            prescription.PrescriptionID = Guid.NewGuid().ToString();
             _context.Prescriptions.Add(prescription);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Prescription added successfully", prescription });
+            return CreatedAtAction(nameof(GetPrescriptionById), new { id = prescription.PrescriptionID }, prescription);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetPrescription(string id)
-        {
-            var prescription = await _context.Prescriptions.FindAsync(id);
-            return prescription == null ? NotFound("Prescription not found") : Ok(prescription);
-        }
-
-        [HttpGet("doctor/{doctorId}")]
-        public async Task<IActionResult> GetPrescriptionsByDoctor(string doctorId)
+        // GET: api/prescription/bydoctor/{doctorId}
+        [HttpGet("bydoctor/{doctorId}")]
+        public async Task<ActionResult<IEnumerable<Prescription>>> GetPrescriptionsByDoctor(string doctorId)
         {
             var prescriptions = await _context.Prescriptions
                 .Where(p => p.DoctorID == doctorId)
                 .ToListAsync();
 
-            return Ok(prescriptions);
+            return prescriptions;
+        }
+
+        // GET: api/prescription/bypatient/{patientId}
+        [HttpGet("bypatient/{patientId}")]
+        public async Task<ActionResult<IEnumerable<Prescription>>> GetPrescriptionsByPatient(string patientId)
+        {
+            var prescriptions = await _context.Prescriptions
+                .Where(p => p.PatientID == patientId)
+                .ToListAsync();
+
+            return prescriptions;
         }
     }
 }
