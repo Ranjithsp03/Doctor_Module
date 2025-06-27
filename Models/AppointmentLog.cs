@@ -17,6 +17,9 @@ public class AppointmentLog
     public DateTime TimeSlot { get; set; }
     public string DoctorID { get; set; }
 
+
+    public bool IsCompleted { get; set; } = false;
+
     public DateTimeOffset ApprovedAt { get; set; } = DateTime.UtcNow;
     public Guid AppointmentId { get; internal set; }
     public bool IsApproved { get; set; } = false;

@@ -3382,19 +3382,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\u499130\\.nuget\\packages\\": {}
+    "C:\\Users\\u499346\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\u499130\\Desktop\\Doctor_Appointments\\Doctor_Module\\Doctor_Module.csproj",
+      "projectUniqueName": "C:\\Users\\u499346\\Project-1\\DoctorApp\\Doctor_Modules\\Doctor_Module.csproj",
       "projectName": "Doctor_Module",
-      "projectPath": "C:\\Users\\u499130\\Desktop\\Doctor_Appointments\\Doctor_Module\\Doctor_Module.csproj",
-      "packagesPath": "C:\\Users\\u499130\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\u499130\\Desktop\\Doctor_Appointments\\Doctor_Module\\obj\\",
+      "projectPath": "C:\\Users\\u499346\\Project-1\\DoctorApp\\Doctor_Modules\\Doctor_Module.csproj",
+      "packagesPath": "C:\\Users\\u499346\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\u499346\\Project-1\\DoctorApp\\Doctor_Modules\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\u499130\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\u499346\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -3462,7 +3462,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.300/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

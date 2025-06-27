@@ -54,6 +54,8 @@ namespace Doctor_Module.Pages
         .ToList();
     
         }
+
+        
         public async Task<IActionResult> OnPostCancelAsync(Guid id)
         {
             var log = await _context.AppointmentLogs.FindAsync(id);
